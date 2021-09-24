@@ -1,5 +1,12 @@
 # viewcounter Golang Gin
 
+## Database configs
+```sql
+create table ez_mod_time("ModifiedDate" timestamp without time zone);
+insert into ez_mod_time values ('2020-01-01');
+```
+
+
 ## Request For Views
 
 | URL                                        | METHOD |
