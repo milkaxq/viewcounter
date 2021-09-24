@@ -97,7 +97,13 @@ func (c *productController) FindProduct(context *gin.Context) {
 		res := helper.BuildErrorResponse("Failed Search", err.Error(), helper.EmptyObj{})
 		context.JSON(http.StatusBadRequest, res)
 	} else {
-		res := helper.BuildResponse(true, "OK", product)
-		context.JSON(http.StatusOK, res)
+		if product == nil {
+			res := helper.BuildResponse(false, "OK", product)
+			context.JSON(http.StatusOK, res)
+		} else {
+			res := helper.BuildResponse(true, "OK", product)
+			context.JSON(http.StatusOK, res)
+		}
+
 	}
 }

@@ -66,23 +66,28 @@ insert into ez_mod_time values ('2020-01-01');
   "data": [
     {
       "ResGuid": "e1b6d7b0-b959-46b2-a53f-94fedbdaa531",
-      "ResName": "Lenoýo FI Ipsum"
+      "ResName": "Lenoýo FI Ipsum",
+      "ResId": 19
     },
     {
       "ResGuid": "ac1e47a7-5531-432d-a7d4-f07ae4743446",
-      "ResName": "Lenovo IT DDM"
+      "ResName": "Lenovo IT DDM",
+      "ResId": 21
     },
     {
       "ResGuid": "be8d772f-2c15-4e3b-a7a2-c4b28ee110c2",
-      "ResName": "Lenovo Zed 4"
+      "ResName": "Lenovo Zed 4",
+      "ResId": 9
     },
     {
       "ResGuid": "d0d43809-d242-43b0-acf7-0e4812bb2e94",
-      "ResName": "Lenovo Yoga 7"
+      "ResName": "Lenovo Yoga 7",
+      "ResId": 20
     },
     {
       "ResGuid": "fb5da4bc-f049-4693-a092-f5c90bae03d2",
-      "ResName": "Lenovo Yoga U56-i Ultrabook"
+      "ResName": "Lenovo Yoga U56-i Ultrabook",
+      "ResId": 8
     }
   ]
 }

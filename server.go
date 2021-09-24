@@ -30,11 +30,11 @@ func main() {
 	go h.Run()
 	//Call EnvParser
 	config.EnvParser()
-	//Instance of Gin Framework
-	r := gin.Default()
 
 	mode := os.Getenv("GIN_MODE")
 	gin.SetMode(mode)
+	//Instance of Gin Framework
+	r := gin.Default()
 	//Cors
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"}, //Change
