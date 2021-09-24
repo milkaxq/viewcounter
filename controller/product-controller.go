@@ -26,7 +26,7 @@ func NewProductController(productServ service.ProductService) ProductController 
 	}
 }
 
-// localhost:8080/goapi/view-counter/?type
+// localhost:8080/goapi/view-counter/?type=
 func (c *productController) FilterByIpAndUserAgent(context *gin.Context) {
 
 	config.EnvParser()
@@ -56,7 +56,7 @@ func (c *productController) FilterByIpAndUserAgent(context *gin.Context) {
 	userAgentLength := len(context.Request.UserAgent())
 
 	switch productType {
-	case "product":
+	case "resource":
 		if err != nil || userAgentLength <= 40 {
 			res := helper.BuildErrorResponse("", "Something Went Wrong", helper.EmptyObj{})
 			context.JSON(http.StatusBadRequest, res)
@@ -74,7 +74,7 @@ func (c *productController) FilterByIpAndUserAgent(context *gin.Context) {
 			res := helper.BuildResponse(true, "OK", helper.EmptyObj{})
 			context.JSON(http.StatusOK, res)
 		}
-	case "rpAcc":
+	case "rp_acc":
 		if err != nil || userAgentLength <= 40 {
 			res := helper.BuildErrorResponse("", "Something Went Wrong", helper.EmptyObj{})
 			context.JSON(http.StatusBadRequest, res)

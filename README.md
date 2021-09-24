@@ -9,9 +9,9 @@ insert into ez_mod_time values ('2020-01-01');
 
 ## Request For Views
 
-| URL                                        | METHOD |
-| ------------------------------------------ | ------ |
-| localhost:8080/goapi/view-counter/?product | GET    |
+| URL                                              | METHOD |
+| ------------------------------------------------ | ------ |
+| localhost:8080/goapi/view-counter/?type=resource | GET    |
 
 
 | Headers  | EncryptionType | Example                                          |
@@ -19,18 +19,18 @@ insert into ez_mod_time values ('2020-01-01');
 | ResGuid  | base64         | YWZjZTg0NjUtNThkYi00YjE0LTlhYmQtODZjZDA1YTBhYTcy |
 | ResRegNo | base64         | QU4wMDAwMDAwOA==                                 |
 
-| URL                                      | METHOD |
-| ---------------------------------------- | ------ |
-| localhost:8080/goapi/view-counter/?media | GET    |
+| URL                                           | METHOD |
+| --------------------------------------------- | ------ |
+| localhost:8080/goapi/view-counter/?type=media | GET    |
 
 
 | Headers   | EncryptionType | Example                                          |
 | --------- | -------------- | ------------------------------------------------ |
 | MediaGuid | base64         | YWQ0OTEzMmYtOGRmMy00ZmVhLWIxNWQtOTZjMDU2NWZlYmNj |
 
-| URL                                      | METHOD |
-| ---------------------------------------- | ------ |
-| localhost:8080/goapi/view-counter/?rpAcc | GET    |
+| URL                                            | METHOD |
+| ---------------------------------------------- | ------ |
+| localhost:8080/goapi/view-counter/?type=rp_acc | GET    |
 
 
 | Headers    | EncryptionType | Example                                          |
