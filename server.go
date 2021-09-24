@@ -33,6 +33,8 @@ func main() {
 	//Instance of Gin Framework
 	r := gin.Default()
 
+	mode := os.Getenv("GIN_MODE")
+	gin.SetMode(mode)
 	//Cors
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"}, //Change
