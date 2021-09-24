@@ -2,12 +2,13 @@ package main
 
 import (
 	"database/sql"
-	"log"
+	"net/http"
 	"os"
 	"time"
 
 	"viewscounter/config"
 	"viewscounter/controller"
+	"viewscounter/helper"
 	"viewscounter/repository"
 	"viewscounter/service"
 	"viewscounter/ws"
@@ -56,12 +57,22 @@ func main() {
 		productRoutes.GET(findRoute, productController.FindProduct)
 	}
 	r.POST("/order-inv/", func(c *gin.Context) {
-		jsonData, err := c.GetRawData()
-		if err != nil {
-			log.Println(err)
+		token := c.GetHeader("x-access-token")
+		if token != os.Getenv("SHA_KEY") {
+			res := helper.BuildErrorResponse("Failed to get token", "error", helper.EmptyObj{})
+			c.JSON(http.StatusUnauthorized, res)
+		} else {
+			jsonData, err := c.GetRawData()
+			if err != nil {
+				res := helper.BuildErrorResponse("Failed Get Json", err.Error(), helper.EmptyObj{})
+				c.JSON(http.StatusBadRequest, res)
+			}
+			m := ws.Message{Data: jsonData, Room: "orderRevision"}
+			h.Broadcast <- m
+
+			res := helper.BuildResponse(true, "Sended", helper.EmptyObj{})
+			c.JSON(http.StatusOK, res)
 		}
-		m := ws.Message{Data: jsonData, Room: "orderRevision"}
-		h.Broadcast <- m
 	})
 	//WS STARTS HERE
 	r.GET("/ws/", func(c *gin.Context) {

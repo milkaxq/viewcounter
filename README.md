@@ -92,6 +92,25 @@ insert into ez_mod_time values ('2020-01-01');
   ]
 }
 ```
+
+## Request for Websocket Message
+| URL                       | METHOD |
+| ------------------------- | ------ |
+| localhost:8080/order-inv/ | POST   |
+
+| Headers        | Example   |
+| -------------- | --------- |
+| x-access-token | SomeToken |
+
+## Response
+```JSON
+{
+  "status": true,
+  "message": "Sended",
+  "errors": null,
+  "data": {}
+}
+```
 # SuperVisor Config
 ```conf
 [program:viewscounter]
