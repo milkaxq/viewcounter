@@ -3,7 +3,7 @@
 ## Database configs
 ```sql
 create table ez_mod_time("ModifiedDate" timestamp without time zone);
-insert into ez_mod_time values ('2020-01-01');
+insert into ez_mod_time values ('2000-01-01');
 ```
 
 
@@ -114,18 +114,16 @@ insert into ez_mod_time values ('2020-01-01');
 # SuperVisor Config
 ```conf
 [program:viewscounter]
-directory=/home/milka/Desktop/go/My3Project
-command=/home/milka/Desktop/go/My3Project/viewscounter
+directory=/home/api/viewcounter/
+command=/home/api/viewcounter/viewcounter-amd64-linux
 autostart=true
 autorestart=true
-stderr_logfile=/var/log/viewcounter.err
-stdout_logfile=/var/log/viewcounter.log
-environment=CODENATION_ENV=prod
-environment=GOPATH="/root/gocode"
-stdout_logfile_maxbytes=30MB
-stdout_logfile_backups=3
-stderr_logfile_maxbytes=30MB
-stderr_logfile_backups=3
+stderr_logfile=/var/log/viewcounter/viewcounter.err.log
+stdout_logfile=/var/log/viewcounter/viewcounter.out.log
+stdout_logfile_maxbytes=10MB
+stdout_logfile_backups=2
+stderr_logfile_maxbytes=10MB
+stderr_logfile_backups=2
 ```
 # Nginx Config
 ```conf
