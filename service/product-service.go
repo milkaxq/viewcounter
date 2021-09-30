@@ -107,7 +107,7 @@ func (service *productService) FindProduct(productName string) ([]entity.Product
 	products = nil
 	var product entity.Product
 	query := bleve.NewMatchQuery(productName)
-	query.Fuzziness = 2
+	query.Fuzziness = 1
 	searchRequest := bleve.NewSearchRequest(query)
 	searchRequest.Fields = []string{"*"}
 	searchResult, err := bleveIdx.Search(searchRequest)
@@ -119,6 +119,7 @@ func (service *productService) FindProduct(productName string) ([]entity.Product
 		product.ResGuid = searchResult.Hits[i].Fields["ResGuid"].(string)
 		product.ResName = searchResult.Hits[i].Fields["ResName"].(string)
 		product.ResId = searchResult.Hits[i].Fields["ResId"].(float64)
+		product.ResDesc = searchResult.Hits[i].Fields["ResDesc"].(string)
 		products = append(products, product)
 	}
 	return products, nil

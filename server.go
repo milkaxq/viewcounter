@@ -22,7 +22,6 @@ var (
 	db                *sql.DB                      = config.SetupDatabaseConnection()
 	productRepository repository.ProductRepository = repository.NewProductRepository(db)
 	productService    service.ProductService       = service.NewProductService(productRepository)
-	jwtService        service.JWTService           = service.NewJWTService()
 	productController controller.ProductController = controller.NewProductController(productService)
 )
 
@@ -47,14 +46,14 @@ func main() {
 	}))
 
 	viewCounterRoute := os.Getenv("VIEW_COUNTER_ROUTE")
-	productRoute := os.Getenv("PRODUCT_ROUTE")
-	findRoute := os.Getenv("SEARCH_ROUTE")
+	prefixRoute := os.Getenv("PREFIX_ROUTE")
+	productFindRoute := os.Getenv("PRODUCT_SEARCH_ROUTE")
 	//Group routes of same origin
 
-	productRoutes := r.Group(productRoute)
+	productRoutes := r.Group(prefixRoute)
 	{
 		productRoutes.GET(viewCounterRoute, productController.FilterByIpAndUserAgent)
-		productRoutes.GET(findRoute, productController.FindProduct)
+		productRoutes.GET(productFindRoute, productController.FindProduct)
 	}
 	r.POST("/order-inv/", func(c *gin.Context) {
 		token := c.GetHeader("x-access-token")

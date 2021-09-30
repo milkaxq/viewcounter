@@ -60,12 +60,12 @@ func (db *productConnection) AllProduct() []entity.Product {
 		product  entity.Product
 		products []entity.Product
 	)
-	rows, err := db.connection.Query(`SELECT dk."ResGuid", dk."ResName", dk."ResId" FROM tbl_dk_resource as dk, ez_mod_time e WHERE dk."ModifiedDate" > e."ModifiedDate";`)
+	rows, err := db.connection.Query(`SELECT dk."ResGuid", dk."ResName", dk."ResId", dk."ResDesc" FROM tbl_dk_resource as dk, ez_mod_time e WHERE dk."ModifiedDate" > e."ModifiedDate";`)
 	if err != nil {
 		fmt.Print(err.Error())
 	}
 	for rows.Next() {
-		err = rows.Scan(&product.ResGuid, &product.ResName, &product.ResId)
+		err = rows.Scan(&product.ResGuid, &product.ResName, &product.ResId, &product.ResDesc)
 		products = append(products, product)
 		if err != nil {
 			fmt.Print(err.Error())

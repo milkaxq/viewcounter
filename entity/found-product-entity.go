@@ -5,4 +5,5 @@ type Product struct {
 	ResGuid string
 	ResName string
 	ResId   float64
+	ResDesc string
 }
