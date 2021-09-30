@@ -107,7 +107,7 @@ func (service *productService) FindProduct(productName string, fuzziness int) ([
 	products = nil
 	var product entity.Product
 	switch fuzziness {
-	case 1, 2:
+	case 0, 1, 2:
 		query := bleve.NewMatchQuery(productName)
 		query.Fuzziness = fuzziness
 		searchRequest := bleve.NewSearchRequestOptions(query, 1000, 0, true)
