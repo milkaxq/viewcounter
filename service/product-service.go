@@ -21,7 +21,7 @@ type ProductService interface {
 	FilterByMediaGuid(userIp string, userAgent string, guid string)
 	FilterByRpAccGuid(userIp string, userAgent string, guid string, No string)
 
-	FindProduct(productName string) ([]entity.Product, error)
+	FindProduct(productName string, fuzziness int) ([]entity.Product, int, error)
 	InsertViews()
 	BleveSync()
 }
@@ -101,28 +101,49 @@ func (service *productService) InsertViews() {
 }
 
 //Find Product
-func (service *productService) FindProduct(productName string) ([]entity.Product, error) {
+func (service *productService) FindProduct(productName string, fuzziness int) ([]entity.Product, int, error) {
 	// try to open de persistence file...
 	// bleveIdx, _ := bleve.Open("products.bleve")
 	products = nil
 	var product entity.Product
-	query := bleve.NewMatchQuery(productName)
-	query.Fuzziness = 1
-	searchRequest := bleve.NewSearchRequest(query)
-	searchRequest.Fields = []string{"*"}
-	searchResult, err := bleveIdx.Search(searchRequest)
-	if err != nil {
-		return nil, err
+	switch fuzziness {
+	case 1, 2:
+		query := bleve.NewMatchQuery(productName)
+		query.Fuzziness = fuzziness
+		searchRequest := bleve.NewSearchRequestOptions(query, 1000, 0, true)
+		searchRequest.Fields = []string{"*"}
+		searchResult, err := bleveIdx.Search(searchRequest)
+		if err != nil {
+			return nil, 0, err
+		}
+		// fmt.Println(searchResult)
+		for i := 0; searchResult.Hits.Len() > i; i++ {
+			product.ResGuid = searchResult.Hits[i].Fields["ResGuid"].(string)
+			product.ResName = searchResult.Hits[i].Fields["ResName"].(string)
+			product.ResId = searchResult.Hits[i].Fields["ResId"].(float64)
+			product.ResDesc = searchResult.Hits[i].Fields["ResDesc"].(string)
+			products = append(products, product)
+		}
+		return products, searchResult.Hits.Len(), nil
+	case 3:
+		query := bleve.NewMatchAllQuery()
+		searchRequest := bleve.NewSearchRequestOptions(query, 100, 0, true)
+		searchRequest.Fields = []string{"*"}
+		searchResult, err := bleveIdx.Search(searchRequest)
+		if err != nil {
+			return nil, 0, err
+		}
+		// fmt.Println(searchResult)
+		for i := 0; searchResult.Hits.Len() > i; i++ {
+			product.ResGuid = searchResult.Hits[i].Fields["ResGuid"].(string)
+			product.ResName = searchResult.Hits[i].Fields["ResName"].(string)
+			product.ResId = searchResult.Hits[i].Fields["ResId"].(float64)
+			product.ResDesc = searchResult.Hits[i].Fields["ResDesc"].(string)
+			products = append(products, product)
+		}
+		return products, searchResult.Hits.Len(), nil
 	}
-	// fmt.Println(searchResult)
-	for i := 0; searchResult.Hits.Len() > i; i++ {
-		product.ResGuid = searchResult.Hits[i].Fields["ResGuid"].(string)
-		product.ResName = searchResult.Hits[i].Fields["ResName"].(string)
-		product.ResId = searchResult.Hits[i].Fields["ResId"].(float64)
-		product.ResDesc = searchResult.Hits[i].Fields["ResDesc"].(string)
-		products = append(products, product)
-	}
-	return products, nil
+	return nil, 0, nil
 }
 
 func (service *productService) BleveSync() {

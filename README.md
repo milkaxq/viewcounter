@@ -60,71 +60,53 @@ insert into ez_mod_time values ('2000-01-01');
 
 ```JSON
 {
-  "status": true,
-  "message": "OK",
-  "errors": null,
   "data": [
     {
-      "ResGuid": "edd35657-65db-4b0d-9ee3-f05481d9d578",
-      "ResName": "Genius Gaming keyboad Scorpion K9 usb rus/eng/black",
-      "ResId": 59,
+      "ResGuid": "68a19aa8-d860-40e2-b660-a7e32a3ef075",
+      "ResName": "Notebook HP 15-ra008nia cpu Intel Celeron N3060 1.6GHz/Ram 4Gb DDR3/HDD 500Gb/DVD/HD LED 15.6\"/Lan",
+      "ResId": 763,
       "ResDesc": ""
     },
     {
-      "ResGuid": "5c995c33-78d4-4c72-a24a-63c30b81c2ac",
-      "ResName": "Keyboard for notebook",
-      "ResId": 1815,
+      "ResGuid": "20991c1e-e878-41d2-b93c-a491fe57d989",
+      "ResName": "GS-A3/ Pos System Cpu Intel i3-3th gen /Ram 4 gb /SSD64gb /Screen 15\" Touch Led/2nd Screen 15\" no ",
+      "ResId": 1846,
       "ResDesc": ""
     },
     {
-      "ResGuid": "3466f8ab-08fd-4405-a29a-abc49629e59b",
-      "ResName": "Mercury MK59 Gaming keyboard",
-      "ResId": 269,
+      "ResGuid": "468e487c-281a-487c-8b41-9a8bb270550b",
+      "ResName": "Notebook Hp 15-da2199nia cpu i7-10510U/ram 8Gb/HDD 1Tb/VGA NVidia GeForce/dvd/15.6\" HD LED/black/lan",
+      "ResId": 1781,
       "ResDesc": ""
     },
     {
-      "ResGuid": "8e38b889-d416-4580-abf1-7d6cb26b22ae",
-      "ResName": "Mecury MK58 Gaming keyboard",
-      "ResId": 268,
+      "ResGuid": "6f4aa658-842e-4538-82d5-6bc7cb90dbc3",
+      "ResName": "POS WIDE TFT LED TOUCH SCREEN MONITOR CPU Cel G1800 2.4Ghz/RAM 2GB DDR3/SSD 32 GB/15'' +10'' WHITE ",
+      "ResId": 514,
       "ResDesc": ""
     },
     {
-      "ResGuid": "a35e5eeb-6024-4075-8bef-1faaf995455d",
-      "ResName": "Keyboard UNV KB-100",
-      "ResId": 1434,
+      "ResGuid": "7752050d-656e-461b-a98d-bac9dadafcbd",
+      "ResName": "AIO Acer Aspire Z1-612 cpu intel N3050/ram 2Gb/HDD 500Gb/19,5\"HD LED/vga shared/wired keyboard+mouse",
+      "ResId": 565,
       "ResDesc": ""
     },
     {
-      "ResGuid": "ba9e9c40-d088-4919-9e01-04039bff560c",
-      "ResName": "Keyboard Geniuse LuxeMate100 /Black",
-      "ResId": 1634,
+      "ResGuid": "ba732cbc-e000-47ac-9d56-b76d6413be55",
+      "ResName": "POS WIDE TFT LED TOUCH SCREEN MONITOR CPU Cel G1800 2.4Ghz/RAM 2GB DDR3/SSD 32 GB/15'' /PLASTIC/BLAC",
+      "ResId": 327,
       "ResDesc": ""
     },
     {
-      "ResGuid": "59dbfede-590a-4a85-82e7-82066173b759",
-      "ResName": "Keyboard+mouse Logitech MK220 wireless",
-      "ResId": 1899,
+      "ResGuid": "bd5e99fc-2d43-4b25-8324-873baa16ec3f",
+      "ResName": "LENOVO B50-80 /INTEL I5-5200U 2.2GHZ/RAM 4GB /HDD 500GB /DISPLAY 15'6 HD LED /4 CELL/OS WIN 8.1 PRO",
+      "ResId": 636,
       "ResDesc": ""
-    },
-    {
-      "ResGuid": "c14cb5e8-1904-4c9c-a4b5-609cfe32eed8",
-      "ResName": "Keyboard Bamboo wired/USB/wood",
-      "ResId": 498,
-      "ResDesc": ""
-    },
-    {
-      "ResGuid": "0097e962-da19-448d-8b33-c44ebd41e8ea",
-      "ResName": "Programmable  keyboard Posiflex AT KB-6600B black",
-      "ResId": 1723,
-      "ResDesc": ""
-    },
-    {
-      "ResGuid": "19dac6c1-7797-44d1-873d-c7bbb442012a",
-      "ResName": "Number Keyboard +Electrick lock for inside door",
-      "ResId": 1741,
-      "ResDesc": ""
-    }
-  ]
+    }],
+  "errors": null,
+  "message": "ok",
+  "status": true,
+  "total": 51
 }
 ```
 

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/base64"
+	"fmt"
 	"net/http"
 	"os"
 	"viewscounter/config"
@@ -41,15 +42,15 @@ func (c *productController) FilterByIpAndUserAgent(context *gin.Context) {
 	rpAccRegNoHeaderType := os.Getenv("RP_ACC_REG_NO_HEADER")
 
 	resGuid := context.GetHeader(resGuidHeaderType)
-	eGuid, err := base64.StdEncoding.DecodeString(resGuid)
+	eGuid, _ := base64.StdEncoding.DecodeString(resGuid)
 	resNo := context.GetHeader(resRegNoHeaderType)
-	eResNo, err := base64.StdEncoding.DecodeString(resNo)
+	eResNo, _ := base64.StdEncoding.DecodeString(resNo)
 
 	media := context.GetHeader(mediaGuidHeaderType)
-	eMedia, err := base64.StdEncoding.DecodeString(media)
+	eMedia, _ := base64.StdEncoding.DecodeString(media)
 
 	rpAccGuid := context.GetHeader(rpAccGuidHeaderType)
-	eRpAccGuid, err := base64.StdEncoding.DecodeString(rpAccGuid)
+	eRpAccGuid, _ := base64.StdEncoding.DecodeString(rpAccGuid)
 	rpAccNo := context.GetHeader(rpAccRegNoHeaderType)
 	eRpAccNo, err := base64.StdEncoding.DecodeString(rpAccNo)
 
@@ -92,18 +93,24 @@ func (c *productController) FilterByIpAndUserAgent(context *gin.Context) {
 //localhost:8080/goapi/find-product/?search=...
 func (c *productController) FindProduct(context *gin.Context) {
 	search := context.Query("search")
-	product, err := c.productService.FindProduct(search)
+	fuzziness := 0
+	total := 0
+	product, total, err := c.productService.FindProduct(search, fuzziness)
 	if err != nil {
 		res := helper.BuildErrorResponse("Failed Search", err.Error(), helper.EmptyObj{})
 		context.JSON(http.StatusBadRequest, res)
 	} else {
-		if product == nil {
-			res := helper.BuildResponse(false, "OK", product)
-			context.JSON(http.StatusOK, res)
-		} else {
-			res := helper.BuildResponse(true, "OK", product)
-			context.JSON(http.StatusOK, res)
+		for product == nil {
+			fuzziness += 1
+			fmt.Println(fuzziness)
+			product, total, err = c.productService.FindProduct(search, fuzziness)
 		}
-
 	}
+	context.JSON(http.StatusOK, gin.H{
+		"total":   total,
+		"data":    product,
+		"status":  true,
+		"message": "ok",
+		"errors":  err,
+	})
 }
