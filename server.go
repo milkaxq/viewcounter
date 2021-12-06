@@ -48,8 +48,8 @@ func main() {
 	viewCounterRoute := os.Getenv("VIEW_COUNTER_ROUTE")
 	prefixRoute := os.Getenv("PREFIX_ROUTE")
 	productFindRoute := os.Getenv("PRODUCT_SEARCH_ROUTE")
-	//Group routes of same origin
 
+	//Group routes of same origin
 	productRoutes := r.Group(prefixRoute)
 	{
 		productRoutes.GET(viewCounterRoute, productController.FilterByIpAndUserAgent)
@@ -73,9 +73,15 @@ func main() {
 			c.JSON(http.StatusOK, res)
 		}
 	})
+
 	//WS STARTS HERE
-	r.GET("/ws/", func(c *gin.Context) {
-		ws.ServeWs(h, c.Writer, c.Request, "orderRevision")
+	r.GET("/ws/*name", func(c *gin.Context) {
+		name := c.Param("name")
+		if name == "/" {
+			ws.ServeWs(h, c.Writer, c.Request, "orderRevision")
+		} else {
+			ws.ServeSMS(h, c.Writer, c.Request, name)
+		}
 	})
 
 	//Cron - Periodicly call function

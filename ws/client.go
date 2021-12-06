@@ -129,11 +129,26 @@ func ServeWs(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
 	go s.readPump()
 }
 
+func ServeSMS(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
+	// token := r.URL.Query().Get("token")
+	// fmt.Println(token)
+	ws, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+	c := &connection{h: hub, send: make(chan []byte, 256), ws: ws}
+	s := subscription{c, roomId}
+	c.h.Register <- s
+	go s.writePump()
+	go s.readPump()
+}
+
 func ValidateToken(token string) (*jwt.Token, error) {
 	secretKey := "secret"
 	return jwt.Parse(token, func(t_ *jwt.Token) (interface{}, error) {
 		if _, ok := t_.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method %v", t_.Header["alg"])
+			return nil, fmt.Errorf("unexpected signing method %v", t_.Header["alg"])
 		}
 		return []byte(secretKey), nil
 	})
