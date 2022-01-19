@@ -109,11 +109,27 @@ insert into ez_mod_time values ('2000-01-01');
   "total": 51
 }
 ```
+# Connect to WebSocket
+| URL| METHOD |
+| :--- | :---|
+| localhost:8080/ws/ | ws-connection |
+| localhost:8080/ws/**ANYTHING** | ws-connection |
+
+**First Message Should be Valid JWT TOKEN**
 
 ## Request for Websocket Message
 | URL                       | METHOD |
 | ------------------------- | ------ |
 | localhost:8080/order-inv/ | POST   |
+
+| Headers        | Example   |
+| -------------- | --------- |
+| x-access-token | SomeToken |
+
+## Request for sms Message
+| URL                       | METHOD |
+| ------------------------- | ------ |
+| localhost:8080/sms-register/ | POST   |
 
 | Headers        | Example   |
 | -------------- | --------- |
