@@ -137,6 +137,19 @@ func ServeSMS(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
 		log.Println(err.Error())
 		return
 	}
+	t := token{}
+	err = ws.ReadJSON(&t)
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Println(string(t.Token))
+
+	token, err := ValidateToken(string(t.Token))
+	if err != nil || !token.Valid {
+		w.WriteHeader(http.StatusUnauthorized)
+		ws.Close()
+	}
 	c := &connection{h: hub, send: make(chan []byte, 256), ws: ws}
 	s := subscription{c, roomId}
 	c.h.Register <- s

@@ -74,13 +74,31 @@ func main() {
 		}
 	})
 
+	r.POST("/sms-register/", func(c *gin.Context) {
+		token := c.GetHeader("x-access-token")
+		if token != os.Getenv("SHA_KEY") {
+			res := helper.BuildErrorResponse("Failed to get token", "error", helper.EmptyObj{})
+			c.JSON(http.StatusUnauthorized, res)
+		} else {
+			jsonData, err := c.GetRawData()
+			if err != nil {
+				res := helper.BuildErrorResponse("Failed Get Json", err.Error(), helper.EmptyObj{})
+				c.JSON(http.StatusBadRequest, res)
+			}
+			m := ws.Message{Data: jsonData, Room: "smsRegister"}
+			h.Broadcast <- m
+
+			res := helper.BuildResponse(true, "Sended", helper.EmptyObj{})
+			c.JSON(http.StatusOK, res)
+		}
+	})
 	//WS STARTS HERE
 	r.GET("/ws/*name", func(c *gin.Context) {
 		name := c.Param("name")
 		if name == "/" {
 			ws.ServeWs(h, c.Writer, c.Request, "orderRevision")
 		} else {
-			ws.ServeSMS(h, c.Writer, c.Request, name)
+			ws.ServeSMS(h, c.Writer, c.Request, "smsRegister")
 		}
 	})
 
