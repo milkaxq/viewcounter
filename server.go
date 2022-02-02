@@ -50,6 +50,8 @@ func main() {
 	productFindRoute := os.Getenv("PRODUCT_SEARCH_ROUTE")
 	ws_orderInvRoute := os.Getenv("WS_ORDER_INV_ROUTE")
 	ws_smsRegisterRoute := os.Getenv("WS_SMS_REGISTER_ROUTE")
+	api_orderInvRoute := os.Getenv("API_ORDER_INV_ROUTE")
+	api_smsRegisterRoute := os.Getenv("API_SMS_REGISTER_ROUTE")
 
 	//Group routes of same origin
 	productRoutes := r.Group(prefixRoute)
@@ -57,7 +59,7 @@ func main() {
 		productRoutes.GET(viewCounterRoute, productController.FilterByIpAndUserAgent)
 		productRoutes.GET(productFindRoute, productController.FindProduct)
 	}
-	r.POST("/order-inv/", func(c *gin.Context) {
+	r.POST(api_orderInvRoute, func(c *gin.Context) {
 		token := c.GetHeader("x-access-token")
 		if token != os.Getenv("SHA_KEY") {
 			res := helper.BuildErrorResponse("Failed to get token", "error", helper.EmptyObj{})
@@ -76,7 +78,7 @@ func main() {
 		}
 	})
 
-	r.POST("/sms-register/", func(c *gin.Context) {
+	r.POST(api_smsRegisterRoute, func(c *gin.Context) {
 		token := c.GetHeader("x-access-token")
 		if token != os.Getenv("SHA_KEY") {
 			res := helper.BuildErrorResponse("Failed to get token", "error", helper.EmptyObj{})
