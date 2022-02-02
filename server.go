@@ -48,6 +48,8 @@ func main() {
 	viewCounterRoute := os.Getenv("VIEW_COUNTER_ROUTE")
 	prefixRoute := os.Getenv("PREFIX_ROUTE")
 	productFindRoute := os.Getenv("PRODUCT_SEARCH_ROUTE")
+	ws_orderInvRoute := os.Getenv("WS_ORDER_INV_ROUTE")
+	ws_smsRegisterRoute := os.Getenv("WS_SMS_REGISTER_ROUTE")
 
 	//Group routes of same origin
 	productRoutes := r.Group(prefixRoute)
@@ -95,9 +97,9 @@ func main() {
 	//WS STARTS HERE
 	r.GET("/ws/*name", func(c *gin.Context) {
 		name := c.Param("name")
-		if name == "/" {
+		if name == ws_orderInvRoute {
 			ws.ServeWs(h, c.Writer, c.Request, "orderRevision")
-		} else {
+		} else if name == ws_smsRegisterRoute {
 			ws.ServeSMS(h, c.Writer, c.Request, "smsRegister")
 		}
 	})
