@@ -9,9 +9,9 @@ insert into ez_mod_time values ('2000-01-01');
 
 ## Request For Views
 
-| URL                                              | METHOD |
-| ------------------------------------------------ | ------ |
-| localhost:8080/goapi/view-counter/?type=resource | GET    |
+| URL                                                     | METHOD |
+| ------------------------------------------------------- | ------ |
+| http://localhost:8080/goapi/view-counter/?type=resource | GET    |
 
 
 | Headers  | EncryptionType | Example                                          |
@@ -19,18 +19,18 @@ insert into ez_mod_time values ('2000-01-01');
 | ResGuid  | base64         | YWZjZTg0NjUtNThkYi00YjE0LTlhYmQtODZjZDA1YTBhYTcy |
 | ResRegNo | base64         | QU4wMDAwMDAwOA==                                 |
 
-| URL                                           | METHOD |
-| --------------------------------------------- | ------ |
-| localhost:8080/goapi/view-counter/?type=media | GET    |
+| URL                                                  | METHOD |
+| ---------------------------------------------------- | ------ |
+| http://localhost:8080/goapi/view-counter/?type=media | GET    |
 
 
 | Headers   | EncryptionType | Example                                          |
 | --------- | -------------- | ------------------------------------------------ |
 | MediaGuid | base64         | YWQ0OTEzMmYtOGRmMy00ZmVhLWIxNWQtOTZjMDU2NWZlYmNj |
 
-| URL                                            | METHOD |
-| ---------------------------------------------- | ------ |
-| localhost:8080/goapi/view-counter/?type=rp_acc | GET    |
+| URL                                                   | METHOD |
+| ----------------------------------------------------- | ------ |
+| http://localhost:8080/goapi/view-counter/?type=rp_acc | GET    |
 
 
 | Headers    | EncryptionType | Example                                          |
@@ -52,9 +52,9 @@ insert into ez_mod_time values ('2000-01-01');
 
 ## Request for product search
 
-| URL                                                   | METHOD |
-| ----------------------------------------------------- | :----: |
-| localhost:8080/goapi/find-product/?search=productName |  GET   |
+| URL                                                          | METHOD |
+| ------------------------------------------------------------ | :----: |
+| http://localhost:8080/goapi/find-product/?search=productName |  GET   |
 
 ## Response
 
@@ -110,30 +110,29 @@ insert into ez_mod_time values ('2000-01-01');
 }
 ```
 # Connect to WebSocket
-| URL| METHOD |
-| :--- | :---|
-| localhost:8080/ws/ | ws-connection |
+| URL                            | METHOD        |
+| :----------------------------- | :------------ |
+| localhost:8080/ws/             | ws-connection |
 | localhost:8080/ws/**ANYTHING** | ws-connection |
 
 **First Message Should be Valid JWT TOKEN**
 
 ## Request for Websocket Message
-| URL                       | METHOD |
-| ------------------------- | ------ |
-| localhost:8080/order-inv/ | POST   |
+| URL         | METHOD |
+| ----------- | ------ |
+| /order-inv/ | POST   |
 
-| Headers        | Example   |
-| -------------- | --------- |
-| x-access-token | SomeToken |
-
+```json
+{"token": "<token>"}
+```
 ## Request for sms Message
-| URL                       | METHOD |
-| ------------------------- | ------ |
-| localhost:8080/sms-register/ | POST   |
+| URL            | METHOD |
+| -------------- | ------ |
+| /sms-register/ | POST   |
 
-| Headers        | Example   |
-| -------------- | --------- |
-| x-access-token | SomeToken |
+```json
+{"token": "<token>"}
+```
 
 ## Response
 ```JSON
