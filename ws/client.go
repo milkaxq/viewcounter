@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -138,6 +137,7 @@ func ServeSMS(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
 		log.Println(err.Error())
 		return
 	}
+	ws.WriteMessage(1, []byte("connected"))
 	t := token{}
 	err = ws.ReadJSON(&t)
 	if err != nil {
@@ -159,7 +159,7 @@ func ServeSMS(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
 }
 
 func ValidateToken(token string) (*jwt.Token, error) {
-	secretKey := os.Getenv("SECRET_KEY")
+	secretKey := "secret"
 	return jwt.Parse(token, func(t_ *jwt.Token) (interface{}, error) {
 		if _, ok := t_.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method %v", t_.Header["alg"])
