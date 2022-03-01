@@ -108,6 +108,7 @@ func ServeWs(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
 		log.Println(err.Error())
 		return
 	}
+	ws.WriteMessage(1, []byte("connected"))
 	t := token{}
 	err = ws.ReadJSON(&t)
 	if err != nil {
