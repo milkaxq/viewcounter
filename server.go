@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -97,7 +98,7 @@ func main() {
 		}
 	})
 	//WS STARTS HERE
-	r.GET("/ws/*name", func(c *gin.Context) {
+	r.GET(fmt.Sprintf("%s/*name", os.Getenv("WS_URL_PREFIX")), func(c *gin.Context) {
 		name := c.Param("name")
 		if name == ws_orderInvRoute {
 			ws.ServeWs(h, c.Writer, c.Request, "orderRevision")
