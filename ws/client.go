@@ -108,7 +108,7 @@ func ServeWs(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
 		log.Println(err.Error())
 		return
 	}
-	ws.WriteMessage(1, []byte("connected"))
+	ws.WriteMessage(1, []byte("connected send valid jwt"))
 	t := token{}
 	err = ws.ReadJSON(&t)
 	if err != nil {
@@ -138,7 +138,7 @@ func ServeSMS(hub *hub, w http.ResponseWriter, r *http.Request, roomId string) {
 		log.Println(err.Error())
 		return
 	}
-	ws.WriteMessage(1, []byte("connected"))
+	ws.WriteMessage(1, []byte("connected send valid jwt"))
 	t := token{}
 	err = ws.ReadJSON(&t)
 	if err != nil {
